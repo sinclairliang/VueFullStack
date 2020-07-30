@@ -1,6 +1,8 @@
+/* eslint-disable */
+
 <template>
   <div>
-    USERNAME:
+    Username:
     <input type="text" v-model="loginForm.username" placeholder="Enter your username" />
     <br />
     <br />Password:
@@ -13,30 +15,30 @@
 
 <script>
 export default {
-  name: "Login",
-  data() {
+  name: 'Login',
+  data () {
     return {
       loginForm: {
-        username: "",
-        password: ""
+        username: '',
+        password: ''
       },
       responseResult: []
-    };
+    }
   },
   methods: {
-    login() {
+    login () {
       this.$axios
-        .post("/login", {
+        .post('/login', {
           username: this.loginForm.username,
           password: this.loginForm.password
         })
         .then(successResponse => {
           if (successResponse.data.code === 200) {
-            this.$router.replace({ path: "/index" });
+            this.$router.replace({ path: '/index' })
           }
         })
-        .catch(failResponse => {});
+        .catch(failResponse => {})
     }
   }
-};
+}
 </script>
