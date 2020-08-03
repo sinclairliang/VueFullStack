@@ -1,20 +1,17 @@
 <template>
   <div>
-    Username:
-    <input type="text" v-model="loginForm.username" placeholder="Enter your username" />
-    <br />
-    <br />Password:
-    <input type="password" v-model="loginForm.password" placeholder="Password" />
-    <br />
-    <br />
-    <button v-on:click="login">Login</button>
+      Username: <input type="text" v-model="loginForm.username" placeholder="Username"/>
+      <br><br>
+      Password: <input type="password" v-model="loginForm.password" placeholder="Password："/>
+      <br><br>
+      <button v-on:click="login">Login</button>
   </div>
 </template>
 
 <script>
-import qs from 'qs'
 
 export default {
+  name: 'Login',
   data () {
     return {
       loginForm: {
@@ -27,16 +24,17 @@ export default {
   methods: {
     login () {
       this.$axios
-        .post('http://localhost:8443/api/login', {
-          username: qs.stringify(this.loginForm.username),
-          password: qs.stringify(this.loginForm.password)
+        .post('/login', {
+          username: this.loginForm.username,
+          password: this.loginForm.password
         })
         .then(successResponse => {
           if (successResponse.data.code === 200) {
-            this.$router.replace({ path: '/index' })
+            this.$router.replace({path: '/index'})
           }
         })
-        .catch(failResponse => {})
+        .catch(failResponse => {
+        })
     }
   }
 }
