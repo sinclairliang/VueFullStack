@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 <template>
   <div>
     Username:
@@ -14,6 +12,8 @@
 </template>
 
 <script>
+import qs from 'qs'
+
 export default {
   data () {
     return {
@@ -27,9 +27,9 @@ export default {
   methods: {
     login () {
       this.$axios
-        .post('/login', {
-          username: this.loginForm.username,
-          password: this.loginForm.password
+        .post('http://localhost:8443/api/login', {
+          username: qs.stringify(this.loginForm.username),
+          password: qs.stringify(this.loginForm.password)
         })
         .then(successResponse => {
           if (successResponse.data.code === 200) {
