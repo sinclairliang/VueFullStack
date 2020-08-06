@@ -6,18 +6,24 @@
     </el-aside>
 
     <el-main>
-      <!--<books></books>-->
+      <books class="books-area"></books>
     </el-main>
   </el-container>
 </template>
 
 <script>
 import SideMenu from './SideMenu'
+import Books from './Books'
 export default {
   name: 'AppLibrary',
-  components: {SideMenu}
+  components: {SideMenu, Books}
 }
 </script>
 
 <style scoped>
+  .books-area {
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 </style>
