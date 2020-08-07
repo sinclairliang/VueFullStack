@@ -45,7 +45,7 @@ export default {
           title: 'The Picture of Dorian Gray',
           author: 'Oscar Wilde',
           date: '2003-02-04',
-          press: 'Penguin Classics; Revised edition ',
+          press: 'Penguin Classics; Revised edition',
           abs:
             'Enthralled by his own exquisite portrait, Dorian Gray makes a Faustian bargain to sell his soul in exchange for eternal youth and beauty.'
         }
