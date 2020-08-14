@@ -16,7 +16,19 @@ import SideMenu from './SideMenu'
 import Books from './Books'
 export default {
   name: 'AppLibrary',
-  components: {SideMenu, Books}
+  components: {SideMenu, Books},
+  methods: {
+    listByCategory () {
+      var _this = this
+      var cid = this.$refs.SideMenu.cid
+      var url = 'categories/' + cid + '/books'
+      this.$axios.get(url).then(resp => {
+        if (resp && resp.status === 200) {
+          _this.$refs.booksArea.books = resp.data
+        }
+      })
+    }
+  }
 }
 </script>
 

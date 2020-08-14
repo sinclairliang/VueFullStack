@@ -1,8 +1,13 @@
 <template>
   <div>
     <el-row style="height: 840px;">
-      <!--<search-bar></search-bar>-->
-      <el-tooltip effect="dark" placement="right" v-for="item in books" :key="item.id">
+      <search-bar @onSearch="searchResult" ref="searchBar"></search-bar>
+      <el-tooltip
+        effect="dark"
+        placement="right"
+        v-for="item in books.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+        :key="item.id"
+      >
         <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{item.title}}</p>
         <p slot="content" style="font-size: 13px;margin-bottom: 6px">
           <span>{{item.author}}</span> /
@@ -16,45 +21,110 @@
           bodyStyle="padding:10px"
           shadow="hover"
         >
-          <div class="cover">
+          <div class="cover" @click="editBook(item)">
             <img :src="item.cover" alt="Cover" />
           </div>
           <div class="info">
             <div class="title">
               <a href>{{item.title}}</a>
             </div>
+            <i class="el-icon-delete" @click="deleteBook(item.id)"></i>
           </div>
           <div class="author">{{item.author}}</div>
         </el-card>
       </el-tooltip>
+      <edit-form @onSubmit="loadBooks()" ref="edit"></edit-form>
     </el-row>
     <el-row>
-      <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pagesize"
+        :total="books.length"
+      ></el-pagination>
     </el-row>
   </div>
 </template>
 
 <script>
+import EditForm from './EditForm'
+import SearchBar from './SearchBar'
 export default {
   name: 'Books',
+  components: { EditForm, SearchBar },
   data () {
     return {
-      books: [
-        {
-          cover: 'https://images-eu.ssl-images-amazon.com/images/I/41OCVr-5ujL._SY445_QL70_ML2_.jpg',
-          title: 'The Picture of Dorian Gray',
-          author: 'Oscar Wilde',
-          date: '2003-02-04',
-          press: 'Penguin Classics; Revised edition',
-          abs:
-            'Enthralled by his own exquisite portrait, Dorian Gray makes a Faustian bargain to sell his soul in exchange for eternal youth and beauty.'
+      books: [],
+      currentPage: 1,
+      pagesize: 17
+    }
+  },
+  mounted: function () {
+    this.loadBooks()
+  },
+  methods: {
+    loadBooks () {
+      var _this = this
+      this.$axios.get('/books').then((resp) => {
+        if (resp && resp.status === 200) {
+          _this.books = resp.data
         }
-      ]
+      })
+    },
+    handleCurrentChange: function (currentPage) {
+      this.currentPage = currentPage
+      console.log(this.currentPage)
+    },
+    searchResult () {
+      var _this = this
+      this.$axios
+        .get('/search?keywords=' + this.$refs.searchBar.keywords, {})
+        .then((resp) => {
+          if (resp && resp.status === 200) {
+            _this.books = resp.data
+          }
+        })
+    },
+    deleteBook (id) {
+      this.$confirm('This will delte the book permenantly, are you sure?', 'Notification', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$axios.post('/delete', { id: id }).then((resp) => {
+            if (resp && resp.status === 200) {
+              this.loadBooks()
+            }
+          })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'Cancelled Deletion'
+          })
+        })
+      // alert(id)
+    },
+    editBook (item) {
+      this.$refs.edit.dialogFormVisible = true
+      this.$refs.edit.form = {
+        id: item.id,
+        cover: item.cover,
+        title: item.title,
+        author: item.author,
+        date: item.date,
+        press: item.press,
+        abs: item.abs,
+        category: {
+          id: item.category.id.toString(),
+          name: item.category.name
+        }
+      }
     }
   }
 }
 </script>
-
 <style scoped>
 .cover {
   width: 115px;
@@ -86,6 +156,18 @@ img {
 .abstract {
   display: block;
   line-height: 17px;
+}
+
+.el-icon-delete {
+  cursor: pointer;
+  float: right;
+}
+
+.switch {
+  display: flex;
+  position: absolute;
+  left: 780px;
+  top: 25px;
 }
 
 a {
