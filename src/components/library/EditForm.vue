@@ -4,7 +4,7 @@
     <el-dialog title="Add/Edit Books" :visible.sync="dialogFormVisible" @close="clear">
       <el-form v-model="form" style="text-align: left" ref="dataForm">
         <el-form-item label="Title" :label-width="formLabelWidth" prop="title">
-          <el-input v-model="form.title" autocomplete="off" placeholder=""></el-input>
+          <el-input v-model="form.title" autocomplete="off" placeholder></el-input>
         </el-form-item>
         <el-form-item label="Author" :label-width="formLabelWidth" prop="author">
           <el-input v-model="form.author" autocomplete="off"></el-input>
@@ -17,6 +17,7 @@
         </el-form-item>
         <el-form-item label="cover" :label-width="formLabelWidth" prop="cover">
           <el-input v-model="form.cover" autocomplete="off" placeholder="URL"></el-input>
+          <img-upload @onUpload="uploadImg" ref="imgUpload"></img-upload>
         </el-form-item>
         <el-form-item label="abs" :label-width="formLabelWidth" prop="abs">
           <el-input type="textarea" v-model="form.abs" autocomplete="off"></el-input>
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+import ImgUpload from './ImgUpload'
 export default {
   name: 'EditForm',
   data () {
@@ -97,6 +99,9 @@ export default {
           }
         })
     }
+  },
+  uploadImg () {
+    this.form.cover = this.$refs.imgUpload.url
   }
 }
 </script>
