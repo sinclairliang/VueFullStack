@@ -1,7 +1,7 @@
 <template>
   <div>
     <i class="el-icon-circle-plus-outline" @click="dialogFormVisible = true"></i>
-    <el-dialog title="添加/修改图书" :visible.sync="dialogFormVisible" @close="clear">
+    <el-dialog title="Add/Edit Books" :visible.sync="dialogFormVisible" @close="clear">
       <el-form v-model="form" style="text-align: left" ref="dataForm">
         <el-form-item label="Title" :label-width="formLabelWidth" prop="title">
           <el-input v-model="form.title" autocomplete="off" placeholder=""></el-input>
@@ -22,7 +22,7 @@
           <el-input type="textarea" v-model="form.abs" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Category" :label-width="formLabelWidth" prop="cid">
-          <el-select v-model="form.category.id" placeholder="请选择分类">
+          <el-select v-model="form.category.id" placeholder="Category">
             <el-option label="Literature" value="1"></el-option>
             <el-option label="Pupolar" value="2"></el-option>
             <el-option label="Culture" value="3"></el-option>

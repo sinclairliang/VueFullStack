@@ -78,7 +78,9 @@ export default {
     searchResult () {
       var _this = this
       this.$axios
-        .get('/search?keywords=' + this.$refs.searchBar.keywords, {})
+        .post('/search', {
+          keywords: this.$refs.searchBar.keywords
+        })
         .then((resp) => {
           if (resp && resp.status === 200) {
             _this.books = resp.data
@@ -86,11 +88,15 @@ export default {
         })
     },
     deleteBook (id) {
-      this.$confirm('This will delte the book permenantly, are you sure?', 'Notification', {
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'Cancel',
-        type: 'warning'
-      })
+      this.$confirm(
+        'This will delte the book permenantly, are you sure?',
+        'Notification',
+        {
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }
+      )
         .then(() => {
           this.$axios.post('/delete', { id: id }).then((resp) => {
             if (resp && resp.status === 200) {
