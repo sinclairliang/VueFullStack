@@ -70,6 +70,7 @@ export default {
   },
   methods: {
     clear () {
+      this.$refs.imgUpload.clear()
       this.form = {
         id: '',
         title: '',
