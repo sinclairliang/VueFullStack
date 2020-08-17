@@ -48,6 +48,7 @@
 import ImgUpload from './ImgUpload'
 export default {
   name: 'EditForm',
+  components: {ImgUpload},
   data () {
     return {
       dialogFormVisible: false,

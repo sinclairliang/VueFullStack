@@ -5,11 +5,6 @@
     action="http://localhost:8098/api/covers"
     :on-preview="handlePreview"
     :on-remove="handleRemove"
-    :before-remove="beforeRemove"
-    :on-success="handleSuccess"
-    multiple
-    :limit="1"
-    :on-exceed="handleExceed"
     :file-list="fileList"
   >
     <el-button size="small" type="primary">Upload</el-button>
@@ -31,13 +26,13 @@ export default {
     handlePreview (file) {},
     handleExceed (file, fileList) {
       this.$message.warning(
-        `More than one file is slected, you  have already selected  ${
+        `The limit is 1, you selected ${
           file.length
-        }, totaled ${file.length + fileList.length} files`
+        } files this time, add up to ${file.length + fileList.length} totally`
       )
     },
     beforeRemove (file, fileList) {
-      return this.$confirm(`Are you sure to remove ${file.name}?`)
+      return this.$confirm(`Cancel the transfert of ${file.name} ?`)
     },
     handleSeccess (response) {
       this.url = response
