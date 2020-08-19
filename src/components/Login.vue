@@ -32,8 +32,8 @@ export default {
   data () {
     return {
       loginForm: {
-        username: 'admin',
-        password: '123'
+        username: '',
+        password: ''
       },
       responseResult: []
     }
@@ -41,7 +41,6 @@ export default {
   methods: {
     login () {
       var _this = this
-      console.log(this.$store.state)
       this.$axios
         .post(
           '/login',

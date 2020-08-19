@@ -1,16 +1,23 @@
 <template>
 <body id="paper">
-  <el-form class="login-container" label-position="left" label-width="0px" v-loading="loading">
+  <el-form
+    :model="loginForm"
+    :rules="rules"
+    class="login-container"
+    label-position="left"
+    label-width="0px"
+    v-loading="loading"
+  >
     <h3 class="login_title">Sign Up</h3>
-    <el-form-item>
-      <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="username"></el-input>
+    <el-form-item prop="username">
+      <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="Username"></el-input>
     </el-form-item>
-    <el-form-item>
+    <el-form-item prop="password">
       <el-input
         type="password"
         v-model="loginForm.password"
         auto-complete="off"
-        placeholder="password"
+        placeholder="Password"
       ></el-input>
     </el-form-item>
     <el-form-item style="width: 100%">
@@ -24,9 +31,26 @@
 </body>
 </template>
 <script>
+import qs from 'qs'
 export default {
   data () {
     return {
+      rules: {
+        username: [
+          {
+            required: true,
+            message: "Username can't be empty",
+            trigger: 'blur'
+          }
+        ],
+        password: [
+          {
+            required: true,
+            message: "Password can't be empty",
+            trigger: 'blur'
+          }
+        ]
+      },
       checked: true,
       loginForm: {
         username: '',
@@ -39,19 +63,23 @@ export default {
     register () {
       var _this = this
       this.$axios
-        .post('/register', {
-          username: this.loginForm.username,
-          password: this.loginForm.password
-        })
+        .post(
+          '/register',
+          qs.stringify({
+            username: this.loginForm.username,
+            password: this.loginForm.password
+          })
+        )
         .then((resp) => {
+          console.log(resp)
           if (resp.data.code === 200) {
-            this.$alert('Success', 'Notification', {
-              confirmButtonText: 'Yes'
+            this.$alert('Succussful', 'Notification', {
+              confirmButtonText: 'OK'
             })
             _this.$router.replace('/login')
           } else {
             this.$alert(resp.data.message, 'Notification', {
-              confirmButtonText: 'Yes'
+              confirmButtonText: 'OK'
             })
           }
         })
@@ -62,7 +90,7 @@ export default {
 </script>
 <style>
 #paper {
-  background: url("../assets/img/bg/eva1.jpg") no-repeat;
+  background: url("../assets/bg.jpg") no-repeat;
   background-position: center;
   height: 100%;
   width: 100%;
@@ -86,5 +114,9 @@ body {
   margin: 0px auto 40px auto;
   text-align: center;
   color: #505458;
+}
+.login_remember {
+  margin: 0px 0px 35px 0px;
+  text-align: left;
 }
 </style>

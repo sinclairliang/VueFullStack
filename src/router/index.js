@@ -4,7 +4,7 @@ import Home from '../components/Home'
 import AppIndex from '@/components/home/AppIndex'
 import LibraryIndex from '../components/library/LibraryIndex'
 import Login from '@/components/Login'
-
+import Register from '@/components/Register'
 Vue.use(Router)
 
 export default new Router({
@@ -47,6 +47,11 @@ export default new Router({
       meta: {
         requireAuth: true
       }
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     }
   ]
 })
