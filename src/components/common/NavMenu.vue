@@ -19,6 +19,7 @@
 
 <script>
 export default {
+  // working process;
   name: 'NavMenu',
   data () {
     return {
