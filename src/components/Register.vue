@@ -61,6 +61,7 @@ export default {
   },
   methods: {
     register () {
+      // remember to stringingfy the jsons sending to backends;
       var _this = this
       this.$axios
         .post(
