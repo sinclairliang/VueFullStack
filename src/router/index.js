@@ -100,18 +100,18 @@ export const createRouter = routes =>
         component: () => import('../components/admin/AdminIndex'),
         meta: {
           requireAuth: true
-        },
-        children: [
-          {
-            path: '/admin/dashboard',
-            name: 'Dashboard',
-            component: () =>
-              import('../components/admin/dashboard/admin/index'),
-            meta: {
-              requireAuth: true
-            }
-          }
-        ]
+        }
+        // children: [
+        //   {
+        //     path: '/admin/dashboard',
+        //     name: 'Dashboard',
+        //     component: () =>
+        //       import('../components/admin/dashboard/admin/index'),
+        //     meta: {
+        //       requireAuth: true
+        //     }
+        //   }
+        // ]
       },
       {
         path: '*',
