@@ -18,13 +18,38 @@
     >
       <span slot="title" style="font-size: 17px;">
         <i :class="item.iconCls"></i>
-        {{item.nameZh}}
+        {{item.name}}
       </span>
       <el-menu-item v-for="child in item.children" :key="child.path" :index="child.path">
         <i :class="child.icon"></i>
-        {{ child.nameZh }}
+        {{ child.name }}
       </el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
 
+<script>
+export default {
+  name: 'AdminMenu',
+  data () {
+    return {
+      isCollapse: false
+    }
+  },
+  computed: {
+    adminMenus () {
+      return this.$store.state.adminMenus
+    },
+    currentPath () {
+      return this.$route.path
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .el-menu-admin {
+    border-radius: 5px;
+    height: 100%;
+  }
+</style>
