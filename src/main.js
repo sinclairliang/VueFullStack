@@ -44,7 +44,6 @@ router.beforeEach((to, from, next) => {
 })
 
 const initAdminMenu = (router, store) => {
-  // 防止重复触发加载菜单操作
   if (store.state.adminMenus.length > 0) {
     return
   }
@@ -70,7 +69,6 @@ const formatRoutes = routes => {
         require(['./components/admin/' + route.component + '.vue'], resolve)
       },
       name: route.name,
-      nameZh: route.nameZh,
       iconCls: route.iconCls,
       meta: {
         requireAuth: true
@@ -85,7 +83,6 @@ const formatRoutes = routes => {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  render: h => h(App),
   router,
   store,
   components: { App },
