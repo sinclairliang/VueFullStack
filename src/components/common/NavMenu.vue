@@ -19,11 +19,17 @@
     <span
       style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold"
     >White Jotter - Your Mind Palace</span>
+    <i
+      class="el-icon-switch-button"
+      v-on:click="logout"
+      style="float:right;font-size: 40px;color: #222;padding: 10px"
+    ></i>
   </el-menu>
 </template>
 
 <script>
 export default {
+  // working process;
   name: 'NavMenu',
   data () {
     return {
@@ -44,6 +50,7 @@ export default {
           _this.$router.replace('/index')
         }
       }).catch(failResponse => {})
+
     }
   }
 }
@@ -56,7 +63,7 @@ a {
 
 span {
   pointer-events: none;
-}
+}aster
 .el-icon-switch-button {
   cursor: pointer;
   outline: 0;
