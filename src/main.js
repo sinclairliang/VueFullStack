@@ -24,8 +24,9 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     if (store.state.user) {
       axios.get('/authentication').then(resp => {
-        console.log(resp)
-        if (resp) next()
+        if (resp) {
+          next()
+        }
       })
     } else {
       next({

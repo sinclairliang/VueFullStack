@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import qs from 'qs'
 
 export default {
   name: 'Login',
@@ -42,15 +41,10 @@ export default {
     login () {
       var _this = this
       this.$axios
-        .post(
-          '/login',
-          qs.stringify({
-            username: this.loginForm.username,
-            password: this.loginForm.password
-          })
-        )
-        .then((successResponse) => {
-          console.log(successResponse)
+        .post('/login', {
+          username: this.loginForm.username,
+          password: this.loginForm.password
+        }).then((successResponse) => {
           if (successResponse.data.code === 200) {
             _this.$store.commit('login', _this.loginForm)
             var path = this.$route.query.redirect

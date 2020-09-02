@@ -11,6 +11,11 @@
     <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">{{ item.navItem }}</el-menu-item>
     <a href="#nowhere" style="color: #222;float: right;padding: 20px;">More</a>
     <i class="el-icon-menu" style="float:right;font-size: 45px;color: #222;padding-top: 8px"></i>
+    <i
+      class="el-icon-switch-button"
+      v-on:click="logout"
+      style="float:right;font-size: 40px;color: #222;padding: 10px"
+    ></i>
     <span
       style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold"
     >White Jotter - Your Mind Palace</span>
@@ -42,9 +47,10 @@ export default {
       this.$axios.get('/logout').then((resp) => {
         if (resp.data.code === 200) {
           _this.$store.commit('logout')
-          _this.$router.replace('/login')
+          _this.$router.replace('/index')
         }
-      })
+      }).catch(failResponse => {})
+
     }
   }
 }
@@ -57,8 +63,7 @@ a {
 
 span {
   pointer-events: none;
-}
-
+}aster
 .el-icon-switch-button {
   cursor: pointer;
   outline: 0;

@@ -31,7 +31,6 @@
 </body>
 </template>
 <script>
-import qs from 'qs'
 export default {
   data () {
     return {
@@ -65,13 +64,10 @@ export default {
       var _this = this
       this.$axios
         .post(
-          '/register',
-          qs.stringify({
+          '/register', {
             username: this.loginForm.username,
             password: this.loginForm.password
-          })
-        )
-        .then((resp) => {
+          }).then((resp) => {
           console.log(resp)
           if (resp.data.code === 200) {
             this.$alert('Succussful', 'Notification', {
