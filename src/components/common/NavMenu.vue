@@ -19,11 +19,6 @@
     <span
       style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold"
     >White Jotter - Your Mind Palace</span>
-    <i
-      class="el-icon-switch-button"
-      v-on:click="logout"
-      style="float:right;font-size: 40px;color: #222;padding: 10px"
-    ></i>
   </el-menu>
 </template>
 
@@ -44,13 +39,15 @@ export default {
   methods: {
     logout () {
       var _this = this
-      this.$axios.get('/logout').then((resp) => {
-        if (resp.data.code === 200) {
-          _this.$store.commit('logout')
-          _this.$router.replace('/index')
-        }
-      }).catch(failResponse => {})
-
+      this.$axios
+        .get('/logout')
+        .then((resp) => {
+          if (resp.data.code === 200) {
+            _this.$store.commit('logout')
+            _this.$router.replace('/index')
+          }
+        })
+        .catch((failResponse) => {})
     }
   }
 }
@@ -63,8 +60,8 @@ a {
 
 span {
   pointer-events: none;
-}aster
-.el-icon-switch-button {
+}
+aster .el-icon-switch-button {
   cursor: pointer;
   outline: 0;
 }
