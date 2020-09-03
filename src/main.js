@@ -35,6 +35,7 @@ router.beforeEach((to, from, next) => {
       })
     }
   } else {
+    // Needs to change
     next()
   //   next({
   //     path: 'login',
