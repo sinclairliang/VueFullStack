@@ -1,7 +1,7 @@
 <template>
   <el-card class="admin-header">
     <a href="/index">
-      <img src="../../assets/icon2.png" alt width="55px" style="float: left;margin-top: -5px;" />
+      <img src="" alt width="55px" style="float: left;margin-top: -5px;" />
     </a>
     <span style="font-size: 32px;font-weight: bold;position:absolute;left: 100px">WJ</span>
     <i class="el-icon-switch-button" v-on:click="logout" style="font-size: 40px;float: right"></i>
@@ -12,7 +12,7 @@
 import { createRouter } from '../../router'
 export default {
   name: 'Header',
-  method: {
+  methods: {
     logout () {
       var _this = this
       this.$axios

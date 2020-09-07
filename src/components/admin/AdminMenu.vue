@@ -31,9 +31,17 @@
 <script>
 export default {
   name: 'AdminMenu',
+  data () {
+    return {
+      isCollapse: false
+    }
+  },
   computed: {
     adminMenus () {
       return this.$store.state.adminMenus
+    },
+    currentPath () {
+      return this.$route.path
     }
   }
 }

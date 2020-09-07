@@ -35,32 +35,25 @@ router.beforeEach((to, from, next) => {
       })
     }
   } else {
-    // Needs to change
     next()
-  //   next({
-  //     path: 'login',
-  //     query: {
-  //       redirect: to.fullPath
-  //     }
-  //   })
   }
 })
 
 const initAdminMenu = (router, store) => {
-  console.log(store)
   if (store.state.adminMenus.length > 0) {
     return
   }
   axios.get('/menu').then(resp => {
     if (resp && resp.status === 200) {
-      var fmtRoutes = formatRoutes(resp.data.result)
+      console.log(resp)
+      var fmtRoutes = formatRoutes(resp.data)
       router.addRoutes(fmtRoutes)
       store.commit('initAdminMenu', fmtRoutes)
     }
   })
 }
 
-const formatRoutes = (routes) => {
+const formatRoutes = routes => {
   let fmtRoutes = []
   routes.forEach(route => {
     if (route.children) {
@@ -74,13 +67,15 @@ const formatRoutes = (routes) => {
       },
       name: route.name,
       iconCls: route.iconCls,
+      meta: {
+        requireAuth: true
+      },
       children: route.children
     }
     fmtRoutes.push(fmtRoute)
   })
   return fmtRoutes
 }
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
