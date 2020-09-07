@@ -4,6 +4,7 @@
       <Header style="position: absolute;width: 98%;"></Header>
     </el-header>
     <!--<el-row style="height: 100%;">-->
+      <p>Test</p>
     <el-container>
       <el-aside style="height: 112%;margin-top: -80px;width: 250px">
         <admin-menu></admin-menu>

@@ -13,16 +13,16 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 
 router.beforeEach((to, from, next) => {
-  if (store.state.user.username && to.path.startsWith('/admin')) {
+  if (store.state.username && to.path.startsWith('/admin')) {
     initAdminMenu(router, store)
   }
   if (store.state.username && to.path.startsWith('/login')) {
     next({
-      name: 'Dashboard'
+      path: 'admin/dashboard'
     })
   }
   if (to.meta.requireAuth) {
-    if (store.state.user) {
+    if (store.state.username) {
       axios.get('/authentication').then(resp => {
         if (resp) {
           next()
@@ -47,6 +47,7 @@ router.beforeEach((to, from, next) => {
 })
 
 const initAdminMenu = (router, store) => {
+  console.log(store)
   if (store.state.adminMenus.length > 0) {
     return
   }
@@ -59,7 +60,7 @@ const initAdminMenu = (router, store) => {
   })
 }
 
-const formatRoutes = routes => {
+const formatRoutes = (routes) => {
   let fmtRoutes = []
   routes.forEach(route => {
     if (route.children) {
@@ -73,9 +74,6 @@ const formatRoutes = routes => {
       },
       name: route.name,
       iconCls: route.iconCls,
-      meta: {
-        requireAuth: true
-      },
       children: route.children
     }
     fmtRoutes.push(fmtRoute)

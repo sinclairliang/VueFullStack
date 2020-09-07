@@ -11,7 +11,7 @@
   >
     <div style="height: 80px;"></div>
     <el-submenu
-      v-for="(item,i) in adminMenus"
+      v-for="(item, i) in adminMenus"
       :key="i"
       :index="(i).toString()"
       style="text-align: left"
@@ -30,18 +30,10 @@
 
 <script>
 export default {
-  name: 'AdminMenu',
-  data () {
-    return {
-      isCollapse: false
-    }
-  },
+  name: 'admin-menu',
   computed: {
     adminMenus () {
       return this.$store.state.adminMenus
-    },
-    currentPath () {
-      return this.$route.path
     }
   }
 }
