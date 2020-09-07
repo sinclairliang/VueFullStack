@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  name: 'admin-menu',
+  name: 'AdminMenu',
   computed: {
     adminMenus () {
       return this.$store.state.adminMenus
