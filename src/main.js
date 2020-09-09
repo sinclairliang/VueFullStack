@@ -53,7 +53,7 @@ const initAdminMenu = (router, store) => {
   })
 }
 
-const formatRoutes = routes => {
+const formatRoutes = (routes) => {
   let fmtRoutes = []
   routes.forEach(route => {
     if (route.children) {
@@ -76,6 +76,7 @@ const formatRoutes = routes => {
   })
   return fmtRoutes
 }
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
