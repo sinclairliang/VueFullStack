@@ -19,6 +19,7 @@ export default {
         .get('/logout')
         .then((resp) => {
           if (resp && resp.data.code === 200) {
+            console.log('debugging logout')
             _this.$store.commit('logout')
             _this.$router.replace('/index')
             const newRouter = createRouter()
