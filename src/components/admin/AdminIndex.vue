@@ -16,15 +16,14 @@
 </template>
 
 <script>
-import Header from './Header'
 import AdminMenu from './AdminMenu'
-
+import Header from './Header'
 export default {
   name: 'AdminIndex',
   components: {AdminMenu, Header},
   data () {
     return {
-      dialogVisble: false
+      dialogVisible: false
     }
   },
   mounted () {
@@ -33,8 +32,8 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
   #admin-body {
-    height: 95vh;
-  }
+  height: 95vh;
+}
 </style>
