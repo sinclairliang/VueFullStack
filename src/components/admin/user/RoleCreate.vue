@@ -26,3 +26,56 @@
     </el-dialog>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'RoleCreate',
+  data () {
+    return {
+      dialogFormVisible: false,
+      rules: {
+        name: [{ required: true, message: "Can't be empty", trigger: 'blur' }]
+      },
+      checked: true,
+      roleForm: {
+        name: ''
+      },
+      loading: false
+    }
+  },
+  methods: {
+    clear () {
+      this.roleForm = {
+        name: ''
+      }
+    },
+    createRole () {
+      this.$axios
+        .post('/admin/role', {
+          name: this.roleForm.name
+        })
+        .then((resp) => {
+          if (resp.data.code === 200) {
+            this.$alert(resp.data.result, 'Notification', {
+              confirmButtonText: 'OK'
+            })
+            this.clear()
+            this.$emit('onSubmit')
+          } else {
+            this.$alert(resp.data.message, 'Notification', {
+              confirmButtonText: 'OK'
+            })
+          }
+        })
+        .catch((failResponse) => {})
+      this.dialogFormVisible = false
+    }
+  }
+}
+</script>
+
+<style lang="stylus" scoped>
+    .add-button {
+        margin: 18px 0 0 10px;
+    }
+</style>
